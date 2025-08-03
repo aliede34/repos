@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Hosting Yükseltme - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Hosting Özelliklerini Güncelle</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Mevcut Özellikler</h5>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Disk Alanı:</span>
+                                <strong>{{ order.disk_space or 'Belirtilmemiş' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Trafik (Bandwidth):</span>
+                                <strong>{{ order.bandwidth or 'Belirtilmemiş' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>E-posta Hesapları:</span>
+                                <strong>{{ order.email_accounts or '0' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Alt Alan Adları:</span>
+                                <strong>{{ order.subdomains or '0' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Veritabanı:</span>
+                                <strong>{{ order.databases or '0' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Domain:</span>
+                                <strong>{{ order.domain or 'Belirtilmemiş' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Mevcut Fiyat:</span>
+                                <strong>₺{{ order.price }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="disk_space" class="form-label">Disk Alanı</label>
+                            <select class="form-select" id="disk_space" name="disk_space">
+                                <option value="10GB" {% if order.disk_space == '10GB' %}selected{% endif %}>10GB (₺0 ek)</option>
+                                <option value="50GB" {% if order.disk_space == '50GB' %}selected{% endif %}>50GB (₺10 ek)</option>
+                                <option value="100GB" {% if order.disk_space == '100GB' %}selected{% endif %}>100GB (₺20 ek)</option>
+                                <option value="200GB" {% if order.disk_space == '200GB' %}selected{% endif %}>200GB (₺40 ek)</option>
+                                <option value="500GB" {% if order.disk_space == '500GB' %}selected{% endif %}>500GB (₺100 ek)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="bandwidth" class="form-label">Trafik (Bandwidth)</label>
+                            <select class="form-select" id="bandwidth" name="bandwidth">
+                                <option value="100GB" {% if order.bandwidth == '100GB' %}selected{% endif %}>100GB (₺0 ek)</option>
+                                <option value="500GB" {% if order.bandwidth == '500GB' %}selected{% endif %}>500GB (₺10 ek)</option>
+                                <option value="1TB" {% if order.bandwidth == '1TB' %}selected{% endif %}>1TB (₺20 ek)</option>
+                                <option value="5TB" {% if order.bandwidth == '5TB' %}selected{% endif %}>5TB (₺50 ek)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email_accounts" class="form-label">E-posta Hesapları</label>
+                                <input type="number" class="form-control" id="email_accounts" name="email_accounts" min="0" max="100" value="{{ order.email_accounts or 0 }}">
+                                <div class="form-text">₺2/her hesap</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="subdomains" class="form-label">Alt Alan Adları (Subdomain)</label>
+                                <input type="number" class="form-control" id="subdomains" name="subdomains" min="0" max="50" value="{{ order.subdomains or 0 }}">
+                                <div class="form-text">₺1/her alt alan adı</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="databases" class="form-label">Veritabanı</label>
+                            <input type="number" class="form-control" id="databases" name="databases" min="0" max="20" value="{{ order.databases or 0 }}">
+                            <div class="form-text">₺5/her veritabanı</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="domain" class="form-label">Domain</label>
+                            <input type="text" class="form-control" id="domain" name="domain" value="{{ order.domain or '' }}" placeholder="example.com">
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary me-md-2">İptal</a>
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

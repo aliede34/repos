@@ -1,0 +1,155 @@
+{% extends "admin/base.html" %}
+
+{% block admin_content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>Yönetim Paneli</h2>
+        <p class="text-muted">Sistem genelindeki istatistikler ve son aktiviteler</p>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                <h3 class="card-title">{{ total_users }}</h3>
+                <p class="card-text text-muted">Toplam Kullanıcı</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-server fa-2x text-success mb-3"></i>
+                <h3 class="card-title">{{ total_server_orders }}</h3>
+                <p class="card-text text-muted">Sunucu Siparişi</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-cloud fa-2x text-info mb-3"></i>
+                <h3 class="card-title">{{ total_hosting_orders }}</h3>
+                <p class="card-text text-muted">Hosting Siparişi</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-ticket-alt fa-2x text-warning mb-3"></i>
+                <h3 class="card-title">{{ total_support_tickets }}</h3>
+                <p class="card-text text-muted">Destek Talebi</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Son Siparişler</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_orders %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı</th>
+                                <th>Tür</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in recent_orders %}
+                            <tr>
+                                <td>
+                                    {% if order.user %}
+                                        {{ order.user.username }}
+                                    {% else %}
+                                        Silinmiş Kullanıcı
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.server_type %}
+                                        Sunucu ({{ order.server_type }})
+                                    {% else %}
+                                        Hosting ({{ order.package }})
+                                    {% endif %}
+                                </td>
+                                <td>{{ order.created_at.strftime('%d.%m.%Y') }}</td>
+                                <td>
+                                    <span class="badge bg-{% if order.status == 'pending' %}warning{% elif order.status == 'active' %}success{% elif order.status == 'cancelled' %}danger{% else %}secondary{% endif %}">
+                                        {{ order.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">Henüz sipariş bulunmamaktadır.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Son Destek Talepleri</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_tickets %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı</th>
+                                <th>Konu</th>
+                                <th>Öncelik</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in recent_tickets %}
+                            <tr>
+                                <td>
+                                    {% if ticket.user %}
+                                        {{ ticket.user.username }}
+                                    {% else %}
+                                        Silinmiş Kullanıcı
+                                    {% endif %}
+                                </td>
+                                <td>{{ ticket.subject[:30] }}{% if ticket.subject|length > 30 %}...{% endif %}</td>
+                                <td>
+                                    <span class="badge bg-{% if ticket.priority == 'high' %}danger{% elif ticket.priority == 'medium' %}warning{% elif ticket.priority == 'low' %}success{% else %}secondary{% endif %}">
+                                        {{ ticket.priority }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-{% if ticket.status == 'open' %}success{% elif ticket.status == 'in_progress' %}warning{% elif ticket.status == 'closed' %}secondary{% else %}primary{% endif %}">
+                                        {{ ticket.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">Henüz destek talebi bulunmamaktadır.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

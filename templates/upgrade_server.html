@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Sunucu Yükseltme - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Sunucu Özelliklerini Güncelle</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Mevcut Özellikler</h5>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Sunucu Türü:</span>
+                                <strong>{{ order.server_type.title() }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>CPU:</span>
+                                <strong>{{ order.cpu or 'Varsayılan' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>RAM:</span>
+                                <strong>{{ order.ram or 'Varsayılan' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Depolama:</span>
+                                <strong>{{ order.storage or 'Varsayılan' }}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Mevcut Fiyat:</span>
+                                <strong>₺{{ order.price }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="cpu" class="form-label">CPU</label>
+                            <select class="form-select" id="cpu" name="cpu">
+                                <option value="" {% if not order.cpu %}selected{% endif %}>Varsayılan</option>
+                                <option value="2 cores" {% if order.cpu == '2 cores' %}selected{% endif %}>2 cores</option>
+                                <option value="4 cores" {% if order.cpu == '4 cores' %}selected{% endif %}>4 cores</option>
+                                <option value="8 cores" {% if order.cpu == '8 cores' %}selected{% endif %}>8 cores</option>
+                                <option value="16 cores" {% if order.cpu == '16 cores' %}selected{% endif %}>16 cores</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="ram" class="form-label">RAM</label>
+                            <select class="form-select" id="ram" name="ram">
+                                <option value="" {% if not order.ram %}selected{% endif %}>Varsayılan</option>
+                                <option value="4GB" {% if order.ram == '4GB' %}selected{% endif %}>4GB</option>
+                                <option value="8GB" {% if order.ram == '8GB' %}selected{% endif %}>8GB</option>
+                                <option value="16GB" {% if order.ram == '16GB' %}selected{% endif %}>16GB</option>
+                                <option value="32GB" {% if order.ram == '32GB' %}selected{% endif %}>32GB</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="storage" class="form-label">Depolama</label>
+                            <select class="form-select" id="storage" name="storage">
+                                <option value="" {% if not order.storage %}selected{% endif %}>Varsayılan</option>
+                                <option value="50GB SSD" {% if order.storage == '50GB SSD' %}selected{% endif %}>50GB SSD</option>
+                                <option value="100GB SSD" {% if order.storage == '100GB SSD' %}selected{% endif %}>100GB SSD</option>
+                                <option value="200GB SSD" {% if order.storage == '200GB SSD' %}selected{% endif %}>200GB SSD</option>
+                                <option value="500GB SSD" {% if order.storage == '500GB SSD' %}selected{% endif %}>500GB SSD</option>
+                                <option value="1TB SSD" {% if order.storage == '1TB SSD' %}selected{% endif %}>1TB SSD</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary me-md-2">İptal</a>
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

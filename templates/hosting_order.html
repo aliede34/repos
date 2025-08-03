@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Hosting Siparişi - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="mb-0">Yeni Hosting Siparişi</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-4">
+                            <h5 class="mb-3">Hosting Özellikleri</h5>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="disk_space" class="form-label">Disk Alanı</label>
+                                    <select class="form-select" id="disk_space" name="disk_space" required>
+                                        <option value="10GB">10GB (₺0 ek)</option>
+                                        <option value="50GB">50GB (₺10 ek)</option>
+                                        <option value="100GB">100GB (₺20 ek)</option>
+                                        <option value="200GB">200GB (₺40 ek)</option>
+                                        <option value="500GB">500GB (₺100 ek)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="bandwidth" class="form-label">Trafik (Bandwidth)</label>
+                                    <select class="form-select" id="bandwidth" name="bandwidth" required>
+                                        <option value="100GB">100GB (₺0 ek)</option>
+                                        <option value="500GB">500GB (₺10 ek)</option>
+                                        <option value="1TB">1TB (₺20 ek)</option>
+                                        <option value="5TB">5TB (₺50 ek)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="email_accounts" class="form-label">E-posta Hesapları</label>
+                                    <input type="number" class="form-control" id="email_accounts" name="email_accounts" min="0" max="100" value="5" required>
+                                    <div class="form-text">₺2/her hesap</div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="subdomains" class="form-label">Alt Alan Adları (Subdomain)</label>
+                                    <input type="number" class="form-control" id="subdomains" name="subdomains" min="0" max="50" value="5" required>
+                                    <div class="form-text">₺1/her alt alan adı</div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="databases" class="form-label">Veritabanı</label>
+                                    <input type="number" class="form-control" id="databases" name="databases" min="0" max="20" value="2" required>
+                                    <div class="form-text">₺5/her veritabanı</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Domain Bilgileri</h5>
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="domain" class="form-label">Domain Adı</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="domain" name="domain" placeholder="ornek.com">
+                                        <span class="input-group-text">.com</span>
+                                    </div>
+                                    <div class="form-text">Domain adı belirtmezseniz, ücretsiz subdomain kullanabilirsiniz.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}BulutYönetici - Bulut Hizmetleri{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Bulut Hizmetlerinde Yeni Nesil Çözümler</h1>
+                <p class="lead mb-4">BulutYönetici ile işletmenizi buluta taşıyın. Güvenilir sunucu, hosting ve 7/24 destek hizmetleriyle dijital dönüşümünüzü kolaylaştırıyoruz.</p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Hemen Başlayın</a>
+                    <a href="#services" class="btn btn-outline-primary btn-lg">Hizmetlerimiz</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&h=400" 
+                     alt="Bulut Sunucu" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Hizmetlerimiz</h2>
+            <p class="lead text-muted">İşletmenizin ihtiyaçlarına uygun çözümler sunuyoruz</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                            <i class="fas fa-server fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Sunucu Kiralama</h5>
+                        <p class="card-text text-muted">Güçlü ve güvenilir sunucularla işletmenizi buluta taşıyın. Esnek planlar ve 7/24 destek.</p>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#serverModal">Detaylar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                            <i class="fas fa-database fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Colocation</h5>
+                        <p class="card-text text-muted">Kendi sunucunuzu veri merkezimize yerleştirin. Güçlü altyapı ve 7/24 fiziksel destek.</p>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#colocationModal">Detaylar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                            <i class="fas fa-globe fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Web Hosting</h5>
+                        <p class="card-text text-muted">Hızlı ve güvenilir hosting hizmetleri. Web siteniz için en iyi performansı sunuyoruz.</p>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#hostingModal">Detaylar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                            <i class="fas fa-headset fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">7/24 Destek</h5>
+                        <p class="card-text text-muted">Teknik sorunlarınızda yanınızdayız. Uzman ekibimizle hızlı ve etkili çözümler sunuyoruz.</p>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#supportModal">Detaylar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Fiyatlandırma</h2>
+            <p class="lead text-muted">Her bütçeye uygun planlar</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h4 class="mb-0">Temel</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-6 fw-bold mb-3">₺199<small class="text-muted">/ay</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 2 CPU Core</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 4GB RAM</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 50GB SSD Depolama</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 100GB Bandwidth</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> E-posta Hesapları</li>
+                        </ul>
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-primary w-100">Satın Al</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-success text-white text-center py-4">
+                        <h4 class="mb-0">Standart</h4>
+                        <span class="badge bg-warning text-dark position-absolute top-0 start-50 translate-middle mt-2">Popüler</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-6 fw-bold mb-3">₺399<small class="text-muted">/ay</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 4 CPU Core</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 8GB RAM</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 100GB SSD Depolama</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 500GB Bandwidth</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Ücretsiz Domain</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> SSL Sertifikası</li>
+                        </ul>
+                        <a href="{{ url_for('register') }}" class="btn btn-success w-100">Satın Al</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-dark text-white text-center py-4">
+                        <h4 class="mb-0">Premium</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="display-6 fw-bold mb-3">₺799<small class="text-muted">/ay</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 8 CPU Core</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 16GB RAM</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 200GB SSD Depolama</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 1TB Bandwidth</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Ücretsiz Domain</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> SSL Sertifikası</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Yedekleme</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> DDoS Koruması</li>
+                        </ul>
+                        <a href="{{ url_for('register') }}" class="btn btn-dark w-100">Satın Al</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-3">Dijital Dönüşümünüze Bugün Başlayın</h2>
+                <p class="lead mb-0">BulutYönetici ile işletmenizi bir üst seviyeye taşıyın. 30 gün boyunca ücretsiz deneyin!</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">Ücretsiz Deneyin</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Detail Modals -->
+<!-- Sunucu Kiralama Modal -->
+<div class="modal fade" id="serverModal" tabindex="-1" aria-labelledby="serverModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serverModalLabel">Sunucu Kiralama</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Güçlü ve güvenilir sunucularla işletmenizi buluta taşıyın. Esnek planlar ve 7/24 destek.</p>
+                <h6>Özellikler:</h6>
+                <ul>
+                    <li>Yüksek performanslı sunucular</li>
+                    <li>7/24 teknik destek</li>
+                    <li>Esnek kaynak ölçeklendirme</li>
+                    <li>Otomatik yedekleme seçenekleri</li>
+                    <li>DDoS koruma</li>
+                    <li>SSL sertifikası</li>
+                </ul>
+                <h6>Fiyatlandırma:</h6>
+                <p>Fiyatlarımız sunucu yapılandırmasına göre değişiklik gösterir. Size özel teklif almak için lütfen kayıt olun veya bizimle iletişime geçin.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Colocation Modal -->
+<div class="modal fade" id="colocationModal" tabindex="-1" aria-labelledby="colocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="colocationModalLabel">Colocation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Kendi sunucunuzu veri merkezimize yerleştirin. Güçlü altyapı ve 7/24 fiziksel destek.</p>
+                <h6>Özellikler:</h6>
+                <ul>
+                    <li>Yüksek güvenlikli veri merkezleri</li>
+                    <li>7/24 fiziksel güvenlik ve teknik destek</li>
+                    <li>Yüksek bant genişliği bağlantıları</li>
+                    <li>Yedekli güç sistemleri</li>
+                    <li>İklimlendirme ve yangın koruma sistemleri</li>
+                    <li>Remote hands hizmeti</li>
+                </ul>
+                <h6>Fiyatlandırma:</h6>
+                <p>Aylık ₺3.500'den başlayan fiyatlarla. Yıllık sözleşme ile %10 indirim fırsatından yararlanın. Detaylar için lütfen kayıt olun veya bizimle iletişime geçin.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Web Hosting Modal -->
+<div class="modal fade" id="hostingModal" tabindex="-1" aria-labelledby="hostingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hostingModalLabel">Web Hosting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Hızlı ve güvenilir hosting hizmetleri. Web siteniz için en iyi performansı sunuyoruz.</p>
+                <h6>Özellikler:</h6>
+                <ul>
+                    <li>SSD disk alanı</li>
+                    <li>Sınırsız bandwidth</li>
+                    <li>E-posta hesapları</li>
+                    <li>Subdomain desteği</li>
+                    <li>Veritabanı desteği</li>
+                    <li>Otomatik yedekleme</li>
+                    <li>Ücretsiz SSL sertifikası</li>
+                    <li>7/24 teknik destek</li>
+                </ul>
+                <h6>Fiyatlandırma:</h6>
+                <p>10GB disk alanı ile başlayan paketlerimiz aylık ₺20'den itibaren. Daha fazla alan ve özellik için paketlerimizi inceleyin.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 7/24 Destek Modal -->
+<div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="supportModalLabel">7/24 Destek</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Teknik sorunlarınızda yanınızdayız. Uzman ekibimizle hızlı ve etkili çözümler sunuyoruz.</p>
+                <h6>Destek Kanalları:</h6>
+                <ul>
+                    <li>7/24 telefon desteği</li>
+                    <li>E-posta desteği (24 saat içinde yanıt)</li>
+                    <li>Canlı chat desteği</li>
+                    <li>Uzaktan erişim ile yardım</li>
+                    <li>Bilgi bankası ve dökümantasyon</li>
+                </ul>
+                <h6>Destek Süreleri:</h6>
+                <p>Tüm teknik sorunlar için 7/24 destek sunuyoruz. Ticari çözümler için iş saatleri içinde öncelikli destek verilmektedir.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

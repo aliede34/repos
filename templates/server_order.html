@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Sunucu Siparişi - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="mb-0">Yeni Sunucu Siparişi</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-4">
+                            <h5 class="mb-3">Sunucu Türü</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_type" id="basic" value="basic" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="basic">
+                                                <h6 class="mb-2">Temel</h6>
+                                                <p class="mb-1">2 CPU Core</p>
+                                                <p class="mb-1">4GB RAM</p>
+                                                <p class="mb-0">50GB SSD</p>
+                                                <div class="mt-2 fw-bold">₺100/ay</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_type" id="standard" value="standard" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="standard">
+                                                <h6 class="mb-2">Standart</h6>
+                                                <p class="mb-1">4 CPU Core</p>
+                                                <p class="mb-1">8GB RAM</p>
+                                                <p class="mb-0">100GB SSD</p>
+                                                <div class="mt-2 fw-bold">₺200/ay</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_type" id="premium" value="premium" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="premium">
+                                                <h6 class="mb-2">Premium</h6>
+                                                <p class="mb-1">8 CPU Core</p>
+                                                <p class="mb-1">16GB RAM</p>
+                                                <p class="mb-0">200GB SSD</p>
+                                                <div class="mt-2 fw-bold">₺400/ay</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Özelleştirme (İsteğe Bağlı)</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="cpu" class="form-label">CPU</label>
+                                    <select class="form-select" id="cpu" name="cpu">
+                                        <option value="">Varsayılan</option>
+                                        <option value="2 cores">2 Cores</option>
+                                        <option value="4 cores">4 Cores</option>
+                                        <option value="8 cores">8 Cores</option>
+                                        <option value="16 cores">16 Cores</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="ram" class="form-label">RAM</label>
+                                    <select class="form-select" id="ram" name="ram">
+                                        <option value="">Varsayılan</option>
+                                        <option value="4GB">4GB</option>
+                                        <option value="8GB">8GB</option>
+                                        <option value="16GB">16GB</option>
+                                        <option value="32GB">32GB</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="storage" class="form-label">Depolama</label>
+                                    <select class="form-select" id="storage" name="storage">
+                                        <option value="">Varsayılan</option>
+                                        <option value="50GB SSD">50GB SSD</option>
+                                        <option value="100GB SSD">100GB SSD</option>
+                                        <option value="200GB SSD">200GB SSD</option>
+                                        <option value="500GB SSD">500GB SSD</option>
+                                        <option value="1TB SSD">1TB SSD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

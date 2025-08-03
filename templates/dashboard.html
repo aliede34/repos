@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}Panel - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                            <i class="fas fa-user fa-lg text-primary"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-1">Hoş geldiniz, {{ user.username }}!</h2>
+                            <p class="mb-0 text-muted">Müşteri panelinize hoş geldiniz. Hesabınız {{ user.created_at.strftime('%d.%m.%Y') }} tarihinde oluşturuldu.</p>
+                        </div>
+                        <div class="ms-auto d-none d-md-block">
+                            <a href="#" class="btn btn-outline-primary">Profili Düzenle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h5 class="mb-3">Hızlı Eylemler</h5>
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <a href="{{ url_for('server_order') }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-2 d-inline-block mb-2">
+                                <i class="fas fa-server fa-lg text-primary"></i>
+                            </div>
+                            <p class="card-text mb-0">Sunucu Siparişi</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="{{ url_for('hosting_order') }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle p-2 d-inline-block mb-2">
+                                <i class="fas fa-globe fa-lg text-success"></i>
+                            </div>
+                            <p class="card-text mb-0">Hosting Siparişi</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="{{ url_for('support') }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle p-2 d-inline-block mb-2">
+                                <i class="fas fa-headset fa-lg text-info"></i>
+                            </div>
+                            <p class="card-text mb-0">Destek Talebi</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="#" class="card border-0 shadow-sm h-100 text-decoration-none">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper bg-warning bg-opacity-10 rounded-circle p-2 d-inline-block mb-2">
+                                <i class="fas fa-file-invoice fa-lg text-warning"></i>
+                            </div>
+                            <p class="card-text mb-0">Faturalar</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-muted mb-1">Toplam Harcama</h6>
+                            <p class="card-text h4 mb-0">
+                                ₺{{ "{:.2f}".format(
+                                    server_orders|sum(attribute='price') + 
+                                    hosting_orders|sum(attribute='price')
+                                ) }}
+                            </p>
+                        </div>
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-2">
+                            <i class="fas fa-coins fa-lg text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-muted mb-1">Aktif Siparişler</h6>
+                            <p class="card-text h4 mb-0">
+                                {{ (
+                                    (server_orders|selectattr('status', 'equalto', 'active')|list|length) +
+                                    (hosting_orders|selectattr('status', 'equalto', 'active')|list|length)
+                                ) }}
+                            </p>
+                        </div>
+                        <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle p-2">
+                            <i class="fas fa-check-circle fa-lg text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-muted mb-1">Bekleyen Destek</h6>
+                            <p class="card-text h4 mb-0">
+                                {{ (support_tickets|selectattr('status', 'equalto', 'open')|list|length) }}
+                            </p>
+                        </div>
+                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle p-2">
+                            <i class="fas fa-comments fa-lg text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-muted mb-1">Toplam Sipariş</h6>
+                            <p class="card-text h4 mb-0">{{ server_orders|length + hosting_orders|length }}</p>
+                        </div>
+                        <div class="icon-wrapper bg-warning bg-opacity-10 rounded-circle p-2">
+                            <i class="fas fa-shopping-cart fa-lg text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity and Orders Section -->
+    <div class="row g-4 mb-4">
+        <!-- Recent Activity -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Son Aktiviteler</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        {% set all_orders = server_orders + hosting_orders %}
+                        {% set sorted_orders = all_orders|sort(attribute='created_at', reverse=true) %}
+                        
+                        {% if sorted_orders %}
+                            {% for order in sorted_orders %}
+                                {% if loop.index <= 5 %}
+                                <div class="timeline-item mb-3">
+                                    <div class="d-flex">
+                                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="fas fa-{% if order.__class__.__name__ == 'ServerOrder' %}server text-primary{% else %}globe text-success{% endif %} fa-sm"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Yeni Sipariş</h6>
+                                            <p class="mb-1 text-muted small">{% if order.__class__.__name__ == 'ServerOrder' %}Sunucu ({{ order.server_type.title() }}){% else %}Hosting ({{ order.package.title() }}){% endif %}</p>
+                                            <p class="mb-1 text-muted small">
+                                                {{ order.created_at.strftime('%d.%m.%Y %H:%M') }} tarihinde oluşturuldu
+                                            </p>
+                                            <span class="badge bg-{% if order.status == 'active' %}success{% elif order.status == 'pending' %}warning{% else %}secondary{% endif %}">
+                                                {{ order.status|title }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted text-center py-3">Henüz bir aktivite bulunmamaktadır.</p>
+                        {% endif %}
+                        
+                        {% if support_tickets %}
+                            {% for ticket in support_tickets|sort(attribute='created_at', reverse=true) %}
+                                {% if loop.index <= 3 %}
+                                <div class="timeline-item mb-3">
+                                    <div class="d-flex">
+                                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="fas fa-headset fa-sm text-info"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Yeni Destek Talebi</h6>
+                                            <p class="mb-1 text-muted small">{{ ticket.subject }}</p>
+                                            <p class="mb-1 text-muted small">
+                                                {{ ticket.created_at.strftime('%d.%m.%Y %H:%M') }} tarihinde oluşturuldu
+                                            </p>
+                                            <span class="badge bg-{% if ticket.status == 'open' %}primary{% elif ticket.status == 'in_progress' %}warning{% elif ticket.status == 'resolved' %}success{% else %}secondary{% endif %}">
+                                                {{ ticket.status|title }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Orders -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Son Siparişler</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+                </div>
+                <div class="card-body">
+                    {% if sorted_orders %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tür</th>
+                                        <th>Durum</th>
+                                        <th>Fiyat</th>
+                                        <th>Tarih</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in sorted_orders %}
+                                        {% if loop.index <= 5 %}
+                                        <tr>
+                                            <td>
+                                                {% if order.__class__.__name__ == 'ServerOrder' %}
+                                                    <i class="fas fa-server text-primary me-1"></i> Sunucu
+                                                {% elif order.__class__.__name__ == 'HostingOrder' %}
+                                                    <i class="fas fa-globe text-success me-1"></i> Hosting
+                                                {% else %}
+                                                    <i class="fas fa-database text-info me-1"></i> Colocation
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{% if order.status == 'active' %}success{% elif order.status == 'pending' %}warning{% else %}secondary{% endif %}">
+                                                    {{ order.status|title }}
+                                                </span>
+                                                {% if order.__class__.__name__ == 'HostingOrder' and order.disk_space %}
+                                                    <br><small class="text-muted">{{ order.disk_space }} | {{ order.bandwidth }}</small>
+                                                {% elif order.__class__.__name__ == 'ColocationOrder' and order.server_size %}
+                                                    <br><small class="text-muted">{{ order.server_size }} | {{ order.rack_units }} RU</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>₺{{ "%.2f"|format(order.price) }}</td>
+                                            <td>{{ order.created_at.strftime('%d.%m') }}</td>
+                                            <td>
+                                                {% if order.__class__.__name__ == 'ServerOrder' %}
+                                                    <a href="{{ url_for('upgrade_server', order_id=order.id) }}" class="btn btn-sm btn-outline-primary">Yükselt</a>
+                                                {% elif order.__class__.__name__ == 'HostingOrder' %}
+                                                    <a href="{{ url_for('upgrade_hosting', order_id=order.id) }}" class="btn btn-sm btn-outline-primary">Yükselt</a>
+                                                {% else %}
+                                                    <button class="btn btn-sm btn-outline-secondary" disabled>Yükselt</button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-3">Henüz siparişiniz bulunmamaktadır.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Support Tickets Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Destek Taleplerim</h5>
+                    <a href="{{ url_for('support') }}" class="btn btn-sm btn-primary">Yeni Talep</a>
+                </div>
+                <div class="card-body">
+                    {% if support_tickets %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Konu</th>
+                                        <th>Öncelik</th>
+                                        <th>Durum</th>
+                                        <th>Oluşturulma</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ticket in support_tickets|sort(attribute='created_at', reverse=true) %}
+                                        {% if loop.index <= 5 %}
+                                        <tr>
+                                            <td>{{ ticket.subject }}</td>
+                                            <td>
+                                                <span class="badge bg-{% if ticket.priority == 'high' %}danger{% elif ticket.priority == 'medium' %}warning{% else %}success{% endif %}">
+                                                    {{ ticket.priority|title }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{% if ticket.status == 'open' %}primary{% elif ticket.status == 'in_progress' %}warning{% elif ticket.status == 'resolved' %}success{% else %}secondary{% endif %}">
+                                                    {{ ticket.status|title }}
+                                                </span>
+                                            </td>
+                                            <td>{{ ticket.created_at.strftime('%d.%m.%Y') }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Detaylar</a>
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-3">Henüz destek talebiniz bulunmamaktadır.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

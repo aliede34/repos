@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Colocation Siparişi - BulutYönetici{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="mb-0">Yeni Colocation Siparişi</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-4">
+                            <h5 class="mb-3">Sunucu Boyutu</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_size" id="1u" value="1U" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="1u">
+                                                <h6 class="mb-2">1U</h6>
+                                                <p class="mb-1">Standart 1U sunucu</p>
+                                                <p class="mb-0">1.75 inch yükseklik</p>
+                                                <div class="mt-2 fw-bold">₺0 ek ücret</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_size" id="2u" value="2U" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="2u">
+                                                <h6 class="mb-2">2U</h6>
+                                                <p class="mb-1">Standart 2U sunucu</p>
+                                                <p class="mb-0">3.5 inch yükseklik</p>
+                                                <div class="mt-2 fw-bold">₺50/ay</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            <input type="radio" class="btn-check" name="server_size" id="4u" value="4U" required>
+                                            <label class="btn btn-outline-primary w-100 h-100 d-flex flex-column justify-content-center" for="4u">
+                                                <h6 class="mb-2">4U</h6>
+                                                <p class="mb-1">Standart 4U sunucu</p>
+                                                <p class="mb-0">7 inch yükseklik</p>
+                                                <div class="mt-2 fw-bold">₺100/ay</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Özelleştirme</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="rack_units" class="form-label">Raf Üniteleri (1-10)</label>
+                                    <input type="number" class="form-control" id="rack_units" name="rack_units" min="1" max="10" value="1" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="bandwidth" class="form-label">Bant Genişliği</label>
+                                    <select class="form-select" id="bandwidth" name="bandwidth" required>
+                                        <option value="100Mbps">100 Mbps</option>
+                                        <option value="1Gbps">1 Gbps</option>
+                                        <option value="10Gbps">10 Gbps</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="ip_addresses" class="form-label">IP Adresleri (1-10)</label>
+                                    <input type="number" class="form-control" id="ip_addresses" name="ip_addresses" min="1" max="10" value="1" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="power_ports" class="form-label">Güç Portları (1-4)</label>
+                                    <input type="number" class="form-control" id="power_ports" name="power_ports" min="1" max="4" value="1" required>
+                                </div>
+                                
+                                <div class="col-12 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="remote_hands" name="remote_hands" value="1">
+                                        <label class="form-check-label" for="remote_hands">
+                                            Remote Hands Hizmeti (₺100/ay) - Fiziksel sunucu işlemleri için uzaktan yardım
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="domain" class="form-label">Alan Adı (İsteğe Bağlı)</label>
+                            <input type="text" class="form-control" id="domain" name="domain" placeholder="example.com">
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

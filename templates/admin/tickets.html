@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+
+{% block admin_content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>Destek Talepleri</h2>
+        <p class="text-muted">Tüm destek taleplerini görüntüle ve yönet</p>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        {% if tickets %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Kullanıcı</th>
+                        <th>Konu</th>
+                        <th>Açıklama</th>
+                        <th>Öncelik</th>
+                        <th>Durum</th>
+                        <th>Oluşturulma</th>
+                        <th>Güncelleme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>
+                            {% if ticket.user %}
+                                {{ ticket.user.username }}
+                            {% else %}
+                                Silinmiş Kullanıcı
+                            {% endif %}
+                        </td>
+                        <td>{{ ticket.subject }}</td>
+                        <td>{{ ticket.description[:50] }}{% if ticket.description|length > 50 %}...{% endif %}</td>
+                        <td>
+                            <span class="badge bg-{% if ticket.priority == 'high' %}danger{% elif ticket.priority == 'medium' %}warning{% elif ticket.priority == 'low' %}success{% else %}secondary{% endif %}">
+                                {{ ticket.priority }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-{% if ticket.status == 'open' %}success{% elif ticket.status == 'in_progress' %}warning{% elif ticket.status == 'closed' %}secondary{% else %}primary{% endif %}">
+                                {{ ticket.status }}
+                            </span>
+                        </td>
+                        <td>{{ ticket.created_at.strftime('%d.%m.%Y') }}</td>
+                        <td>{{ ticket.updated_at.strftime('%d.%m.%Y') if ticket.updated_at else '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">Henüz destek talebi bulunmamaktadır.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
